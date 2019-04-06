@@ -36,19 +36,9 @@ class Action
     /**
      * @var float
      *
-     * @ORM\ManyToMany(targetEntity="Product")
-     * @ORM\JoinTable(name="base_prices",
-     *      joinColumns={@ORM\JoinColumn(name="action_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="product_id", referencedColumnName="id")}
-     *      )
+     * @ORM\Column(name="base_price", type="string", nullable=false)
      */
-    private $basePrices;
-
-
-    public function __construct() {
-        $this->basePrices = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
+    private $basePrice;
 
     /**
      * Get id
@@ -85,36 +75,26 @@ class Action
     }
 
     /**
-     * Add basePrice
+     * Set basePrice
      *
-     * @param \AppBundle\Entity\Product $basePrice
+     * @param string $basePrice
      *
      * @return Action
      */
-    public function addBasePrice(\AppBundle\Entity\Product $basePrice)
+    public function setBasePrice($basePrice)
     {
-        $this->basePrices[] = $basePrice;
+        $this->basePrice = $basePrice;
 
         return $this;
     }
 
     /**
-     * Remove basePrice
+     * Get basePrice
      *
-     * @param \AppBundle\Entity\Product $basePrice
+     * @return string
      */
-    public function removeBasePrice(\AppBundle\Entity\Product $basePrice)
+    public function getBasePrice()
     {
-        $this->basePrices->removeElement($basePrice);
-    }
-
-    /**
-     * Get basePrices
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getBasePrices()
-    {
-        return $this->basePrices;
+        return $this->basePrice;
     }
 }
