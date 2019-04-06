@@ -1,0 +1,7 @@
+app_product:
+    resource: "@AppBundle/Resources/config/routing/product.yml"
+    prefix:   /product
+
+app_action:
+    resource: "@AppBundle/Resources/config/routing/action.yml"
+    prefix: /action
