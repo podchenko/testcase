@@ -19,9 +19,14 @@
             </tr>
             <tr>
                 <th>Special Price</th>
-                {% for price in  product.specialPrices %}
-                    <td>{{ price.action.name}} : {{ price.price }}</td>
-                {% endfor %}
+                <td>
+                    <ul>
+                        {% for price in  product.specialPrices %}
+                            <li>{{ price.action.name}} : {{ price.price }}</li>
+                        {% endfor %}
+                    </ul>
+
+                </td>
             </tr>
             <tr>
                 <th>Created At</th>

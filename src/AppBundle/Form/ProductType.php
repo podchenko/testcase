@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use AppBundle\Model\ActionManager;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProductType extends AbstractType
 {
@@ -24,12 +25,10 @@ class ProductType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $actions = $this->actionManager->getActions();
-
         $builder
             ->add('name')
             ->add('basePrice')
-            ->add('specialPrices', new SpecialPriceType($actions));
+            ->add('specialPrices', CollectionType::class, ['mapped' => false, 'allow_extra_fields' => true]);
     }
 
     /**

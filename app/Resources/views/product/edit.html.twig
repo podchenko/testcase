@@ -5,6 +5,18 @@
     <div class="edit-form">
         {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
+
+        <div>
+            {% for specialPrice in specialPrices %}
+                <div style="width: 100%">
+                    <label>{{ specialPrice.action.name }}</label>
+                    <input type="hidden" value="{{ specialPrice.action.id }}" name="appbundle_product[specialPrices][{{ specialPrice.action.id }}][action]" />
+                    <input type="number" step="0.01" value="{{ specialPrice.price }}" name="appbundle_product[specialPrices][{{ specialPrice.action.id }}][price]" />
+                </div>
+            {% endfor %}
+
+        </div>
+
         <input type="submit" value="Edit" />
         {{ form_end(edit_form) }}
     </div>

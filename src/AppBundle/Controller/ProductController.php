@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Action;
 use AppBundle\Entity\Product;
+use AppBundle\Entity\SpecialPrice;
 use AppBundle\Form\ProductType;
 use AppBundle\Model\ActionManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -42,6 +44,31 @@ class ProductController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $request = $request->request->all();
+
+            if (!empty($request['appbundle_product']['specialPrices'])) {
+                $specialPricesArray = $request['appbundle_product']['specialPrices'];
+
+                foreach($specialPricesArray as $specialPricesItem) {
+                    $specialPrices = new SpecialPrice();
+
+                    if (empty($specialPricesItem['price'])) {
+                        $specialPricesItem['price'] = 0;
+                    }
+
+                    $specialPrices->setPrice($specialPricesItem['price']);
+                    $action = $em->getRepository('AppBundle:Action')->find($specialPricesItem['action']);
+
+                    if ($action instanceof Action) {
+                        $specialPrices->setAction($action);
+                        $specialPrices->setProduct($product);
+                        $product->addSpecialPrice($specialPrices);
+
+                    }
+                }
+            }
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
@@ -82,18 +109,69 @@ class ProductController extends Controller
 
         $deleteForm = $this->createDeleteForm($product);
         $editForm = $this->createForm(new ProductType(new ActionManager($em)), $product);
+
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
+
+            $request = $request->request->all();
+
+            if (!empty($request['appbundle_product']['specialPrices'])) {
+
+                $specialPricesArray = $request['appbundle_product']['specialPrices'];
+
+                foreach($specialPricesArray as $specialPricesItem) {
+                    $action = $em->getRepository('AppBundle:Action')->find($specialPricesItem['action']);
+                    $specialPrices = $em->getRepository('AppBundle:SpecialPrice')->findOneBy(['product' => $product, 'action' => $action]);
+
+                    if (empty($specialPricesItem['price'])) {
+                        $specialPricesItem['price'] = 0;
+                    }
+
+                    if (!($specialPrices instanceof SpecialPrice)) {
+                        $specialPrices = new SpecialPrice();
+
+
+                        $specialPrices->setPrice($specialPricesItem['price']);
+
+                        if ($action instanceof Action) {
+                            $specialPrices->setAction($action);
+                            $specialPrices->setProduct($product);
+                            $product->addSpecialPrice($specialPrices);
+
+                        }
+                    } else {
+                        $specialPrices->setPrice($specialPricesItem['price']);
+                        $product->addSpecialPrice($specialPrices);
+
+                    }
+                }
+
+            }
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('product_edit', array('id' => $product->getId()));
+        }
+
+        $actions = $em->getRepository('AppBundle:Action')->findAll();
+        $specialPrices = [];
+
+        foreach($actions as $action) {
+            $price = $em->getRepository('AppBundle:SpecialPrice')->findOneBy(['action' => $action, 'product' => $product]);
+
+            if ($price instanceof SpecialPrice) {
+                $specialPrices[] = ['action' => $action, 'price' => $price->getPrice()];
+            } else {
+                $specialPrices[] = ['action' => $action, 'price' => 0];
+            }
         }
 
         return $this->render('product/edit.html.twig', array(
             'product' => $product,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
+            'specialPrices' => $specialPrices
         ));
     }
 

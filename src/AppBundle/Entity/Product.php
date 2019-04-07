@@ -43,7 +43,7 @@ class Product
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="SpecialPrice", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="SpecialPrice", mappedBy="product", cascade={"persist"})
      */
     private $specialPrices;
 

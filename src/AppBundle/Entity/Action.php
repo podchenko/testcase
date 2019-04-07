@@ -37,7 +37,7 @@ class Action
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="SpecialPrice", mappedBy="action")
+     * @ORM\OneToMany(targetEntity="SpecialPrice", mappedBy="action", cascade={"persist"})
      */
     private $specialPrices;
 

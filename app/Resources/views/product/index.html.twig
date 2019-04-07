@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Products list</h1>
 
-    {% if actions|length == 0 %}
+    {% if products|length == 0 %}
         <p align="center"> Нет данных  для отображения</p>
     {% else %}
         <table class="index-table">
@@ -11,6 +11,8 @@
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
+                    <th>Base price</th>
+                    <th>Special Prices</th>
                     <th>Created At</th>
                     <th>Actions</th>
                 </tr>
@@ -20,6 +22,16 @@
                 <tr>
                     <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
                     <td>{{ product.name }}</td>
+                    <td>{{ product.basePrice }}</td>
+                    <td>
+                        <ul>
+                            {% for special_price in product.specialPrices %}
+                                <li>
+                                    <a href="{{ path('action_show', { 'id': special_price.action.id }) }}"> {{ special_price.action.name }}</a> : {{ special_price.price }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
                     <td>{{ product.createdAt | date('Y-m-d H:i:s') }}</td>
                     <td>
                         <ul>

@@ -78,7 +78,7 @@ class ActionController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('action_edit', array('id' => $action->getId()));
+            return $this->redirectToRoute('action_index', array('id' => $action->getId()));
         }
 
         return $this->render('action/edit.html.twig', array(
