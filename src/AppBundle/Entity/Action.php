@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Traits\CreatedAtFieldTrait;
 
 /**
@@ -34,11 +35,11 @@ class Action
     private $name;
 
     /**
-     * @var float
+     * @var ArrayCollection
      *
-     * @ORM\Column(name="base_price", type="string", nullable=false)
+     * @ORM\OneToMany(targetEntity="SpecialPrice", mappedBy="action")
      */
-    private $basePrice;
+    private $specialPrices;
 
     /**
      * Get id
@@ -74,27 +75,49 @@ class Action
         return $this->name;
     }
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
     /**
-     * Set basePrice
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->specialPrices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add specialPrice
      *
-     * @param string $basePrice
+     * @param \AppBundle\Entity\SpecialPrice $specialPrice
      *
      * @return Action
      */
-    public function setBasePrice($basePrice)
+    public function addSpecialPrice(\AppBundle\Entity\SpecialPrice $specialPrice)
     {
-        $this->basePrice = $basePrice;
+        $this->specialPrices[] = $specialPrice;
 
         return $this;
     }
 
     /**
-     * Get basePrice
+     * Remove specialPrice
      *
-     * @return string
+     * @param \AppBundle\Entity\SpecialPrice $specialPrice
      */
-    public function getBasePrice()
+    public function removeSpecialPrice(\AppBundle\Entity\SpecialPrice $specialPrice)
     {
-        return $this->basePrice;
+        $this->specialPrices->removeElement($specialPrice);
+    }
+
+    /**
+     * Get specialPrices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSpecialPrices()
+    {
+        return $this->specialPrices;
     }
 }

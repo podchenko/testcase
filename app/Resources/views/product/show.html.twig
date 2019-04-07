@@ -14,6 +14,16 @@
                 <td>{{ product.name }}</td>
             </tr>
             <tr>
+                <th>Base Price</th>
+                <td>{{ product.basePrice }}</td>
+            </tr>
+            <tr>
+                <th>Special Price</th>
+                {% for price in  product.specialPrices %}
+                    <td>{{ price.action.name}} : {{ price.price }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
                 <th>Created At</th>
                 <td>{{ product.createdAt | date('Y-m-d H:i:s') }}</td>
             </tr>

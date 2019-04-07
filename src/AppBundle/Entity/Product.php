@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use AppBundle\Traits\CreatedAtFieldTrait;
 
 /**
@@ -31,6 +32,28 @@ class Product
      * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="base_price", type="string", nullable=false)
+     */
+    private $basePrice;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="SpecialPrice", mappedBy="product")
+     */
+    private $specialPrices;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->specialPrices = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -64,5 +87,63 @@ class Product
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set basePrice
+     *
+     * @param string $basePrice
+     *
+     * @return Product
+     */
+    public function setBasePrice($basePrice)
+    {
+        $this->basePrice = $basePrice;
+
+        return $this;
+    }
+
+    /**
+     * Get basePrice
+     *
+     * @return string
+     */
+    public function getBasePrice()
+    {
+        return $this->basePrice;
+    }
+
+    /**
+     * Add specialPrice
+     *
+     * @param \AppBundle\Entity\SpecialPrice $specialPrice
+     *
+     * @return Product
+     */
+    public function addSpecialPrice(\AppBundle\Entity\SpecialPrice $specialPrice)
+    {
+        $this->specialPrices[] = $specialPrice;
+
+        return $this;
+    }
+
+    /**
+     * Remove specialPrice
+     *
+     * @param \AppBundle\Entity\SpecialPrice $specialPrice
+     */
+    public function removeSpecialPrice(\AppBundle\Entity\SpecialPrice $specialPrice)
+    {
+        $this->specialPrices->removeElement($specialPrice);
+    }
+
+    /**
+     * Get specialPrices
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSpecialPrices()
+    {
+        return $this->specialPrices;
     }
 }

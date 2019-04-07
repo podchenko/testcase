@@ -3,6 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Product;
+use AppBundle\Form\ProductType;
+use AppBundle\Model\ActionManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -33,8 +35,10 @@ class ProductController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $product = new Product();
-        $form = $this->createForm('AppBundle\Form\ProductType', $product);
+        $form = $this->createForm(new ProductType(new ActionManager($em)), $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -45,8 +49,11 @@ class ProductController extends Controller
             return $this->redirectToRoute('product_show', array('id' => $product->getId()));
         }
 
+        $actions = $em->getRepository('AppBundle:Action')->findAll();
+
         return $this->render('product/new.html.twig', array(
             'product' => $product,
+            'actions' => $actions,
             'form' => $form->createView(),
         ));
     }
@@ -71,8 +78,10 @@ class ProductController extends Controller
      */
     public function editAction(Request $request, Product $product)
     {
+        $em = $this->getDoctrine()->getManager();
+
         $deleteForm = $this->createDeleteForm($product);
-        $editForm = $this->createForm('AppBundle\Form\ProductType', $product);
+        $editForm = $this->createForm(new ProductType(new ActionManager($em)), $product);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
