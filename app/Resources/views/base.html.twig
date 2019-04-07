@@ -3,7 +3,85 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+
+        {% block stylesheets %}
+            <style>
+                .main-text, h1 {
+                    text-align: center;
+                    font-size: 26px;
+                    margin: 50px 0;
+                }
+
+                .main_menu, div.edit-form form {
+                    text-align: left;
+                    width: 30%;
+                    margin: 0 auto;
+                    border: 1px solid;
+                    padding: 31px 42px;
+                    border-radius: 15px;
+                    background-color: #f9f7f6;
+                }
+
+                div.edit-form form > div {
+                    margin: 20px;
+                }
+
+                div.edit-form form label {
+                    margin-right: 10px;
+                }
+
+                .main_menu > div > a {
+                    color: #7b3636;
+                }
+
+                .main_menu > div:first-child {
+                    padding-bottom: 30px;
+                }
+
+                table.index-table th {
+                    border-bottom: 1px solid;
+                }
+
+                table {
+                    width: 100%;
+                    text-align: center;
+                    background-color: #f3f2f1;
+                    border: 1px solid;
+                }
+
+                ul {
+                    list-style-type: none !important;
+                }
+
+                ul li {
+                    margin-bottom: 20px;
+                }
+
+                table tr td ul li {
+                    padding: 10px 0px;
+                    color: red;
+                }
+
+                table tr {
+                    height: 60px;
+                }
+
+                a.btn {
+                    color: black;
+                    text-decoration: none;
+                    border: 1px solid;
+                    padding: 8px;
+                    border-radius: 8px;
+                }
+
+                a.btn:hover {
+                    color: white;
+                    background-color: grey;
+                }
+
+            </style>
+
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>

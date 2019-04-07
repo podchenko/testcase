@@ -3,7 +3,7 @@
 {% block body %}
     <h1>Actions list</h1>
 
-    <table>
+    <table class="index-table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -35,7 +35,10 @@
 
     <ul>
         <li>
-            <a href="{{ path('action_new') }}">Create a new action</a>
+            <a href="{{ path('action_new') }}" class="btn">Create a new action</a>
+        </li>
+        <li>
+            <a href="{{ app.request.getBaseURL() }}" class="btn">Back to main page</a>
         </li>
     </ul>
 {% endblock %}

@@ -3,8 +3,12 @@
 {% block body %}
     <div id="wrapper">
         <div id="container">
-            <div>
-                Welcome to the Test App!
+            <div class="main-text">
+                Welcome to the TestCase App!
+            </div>
+            <div class="main_menu">
+                <div><a href="{{ path('action_index') }}">Маркетинговые акции</a></div>
+                <div><a href="{{ path('product_index') }}">Продукты</a></div>
             </div>
 
         </div>
