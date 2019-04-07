@@ -11,7 +11,7 @@
                 <div style="width: 100%">
                     <label>{{ specialPrice.action.name }}</label>
                     <input type="hidden" value="{{ specialPrice.action.id }}" name="appbundle_product[specialPrices][{{ specialPrice.action.id }}][action]" />
-                    <input type="number" step="0.01" value="{{ specialPrice.price }}" name="appbundle_product[specialPrices][{{ specialPrice.action.id }}][price]" />
+                    <input type="text" class="input_number" step="0.01" value="{{ specialPrice.price }}" name="appbundle_product[specialPrices][{{ specialPrice.action.id }}][price]" />
                 </div>
             {% endfor %}
 

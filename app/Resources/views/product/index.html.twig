@@ -1,7 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Products list</h1>
+    <h1>Список продуктов</h1>
+
+    <ul>
+        <li>
+            <a href="{{ path('product_new') }}" class="btn">Create a new product</a>
+        </li>
+        <li>
+            <a href="{{ app.request.getBaseURL() }}" class="btn">Back to main page</a>
+        </li>
+    </ul>
 
     {% if products|length == 0 %}
         <p align="center"> Нет данных  для отображения</p>
@@ -49,13 +58,5 @@
         </table>
 
     {% endif %}
-    <ul>
-        <li>
-            <a href="{{ path('product_new') }}" class="btn">Create a new product</a>
-        </li>
-        <li>
-            <a href="{{ app.request.getBaseURL() }}" class="btn">Back to main page</a>
-        </li>
-    </ul>
 
 {% endblock %}

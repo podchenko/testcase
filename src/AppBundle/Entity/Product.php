@@ -98,7 +98,7 @@ class Product
      */
     public function setBasePrice($basePrice)
     {
-        $this->basePrice = $basePrice;
+        $this->basePrice = floatval(str_replace(' ', '', $basePrice));
 
         return $this;
     }

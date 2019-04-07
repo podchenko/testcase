@@ -65,7 +65,7 @@ class SpecialPrice
      */
     public function setPrice($price)
     {
-        $this->price = $price;
+        $this->price = floatval(str_replace(' ', '', $price));
 
         return $this;
     }

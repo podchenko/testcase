@@ -21,18 +21,19 @@ class ProductType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @param FormBuilderInterface $builder
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('name')
-            ->add('basePrice')
+            ->add('basePrice', null, ['attr' => ['class' => 'input_number']])
             ->add('specialPrices', CollectionType::class, ['mapped' => false, 'allow_extra_fields' => true]);
     }
 
     /**
-     * {@inheritdoc}
+     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -42,7 +43,7 @@ class ProductType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getBlockPrefix()
     {
