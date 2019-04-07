@@ -34,7 +34,7 @@ class SpecialPrice
      * @var Product
      *
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="specialPrices")
-     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id",onDelete="CASCADE")
      */
     private $product;
 
@@ -42,7 +42,7 @@ class SpecialPrice
      * @var Action
      *
      * @ORM\ManyToOne(targetEntity="Action", inversedBy="specialPrices")
-     * @ORM\JoinColumn(name="action_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="action_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $action;
 

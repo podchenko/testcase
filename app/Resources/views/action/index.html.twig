@@ -3,36 +3,39 @@
 {% block body %}
     <h1>Actions list</h1>
 
-    <table class="index-table">
-        <thead>
+    {% if actions|length == 0 %}
+        <p align="center"> Нет данных  для отображения</p>
+    {% else %}
+        <table class="index-table">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
                 <th>CreatedAt</th>
                 <th>Actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for action in actions %}
-            <tr>
-                <td><a href="{{ path('action_show', { 'id': action.id }) }}">{{ action.id }}</a></td>
-                <td>{{ action.name }}</td>
-                <td>{{ action.createdAt | date('Y-m-d H:i:s') }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('action_show', { 'id': action.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('action_edit', { 'id': action.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
+            </thead>
+            <tbody>
+            {% for action in actions %}
+                <tr>
+                    <td><a href="{{ path('action_show', { 'id': action.id }) }}">{{ action.id }}</a></td>
+                    <td>{{ action.name }}</td>
+                    <td>{{ action.createdAt | date('Y-m-d H:i:s') }}</td>
+                    <td>
+                        <ul>
+                            <li>
+                                <a href="{{ path('action_show', { 'id': action.id }) }}">show</a>
+                            </li>
+                            <li>
+                                <a href="{{ path('action_edit', { 'id': action.id }) }}">edit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
     <ul>
         <li>
             <a href="{{ path('action_new') }}" class="btn">Create a new action</a>
@@ -41,4 +44,6 @@
             <a href="{{ app.request.getBaseURL() }}" class="btn">Back to main page</a>
         </li>
     </ul>
+
+
 {% endblock %}
