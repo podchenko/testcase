@@ -40,7 +40,7 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $product = new Product();
-        $form = $this->createForm(new ProductType(new ActionManager($em)), $product);
+        $form = $this->createForm(new ProductType(), $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -108,7 +108,7 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $deleteForm = $this->createDeleteForm($product);
-        $editForm = $this->createForm(new ProductType(new ActionManager($em)), $product);
+        $editForm = $this->createForm(new ProductType(), $product);
 
         $editForm->handleRequest($request);
 

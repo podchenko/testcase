@@ -5,21 +5,10 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use AppBundle\Model\ActionManager;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class ProductType extends AbstractType
 {
-    /**
-     * @var actionManager
-     */
-    private $actionManager;
-
-    public function __construct(ActionManager $actionManager)
-    {
-        $this->actionManager = $actionManager;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
